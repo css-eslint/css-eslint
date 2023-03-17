@@ -7,7 +7,6 @@ import { tokenize } from "./tokenize";
 
 export const parse = async (code: string, _options?: ParserOptions) => {
   const { root } = await postcss().process(code, { from: undefined });
-
   const ast = normalizeNode(root) as RootNode;
 
   return ast;
