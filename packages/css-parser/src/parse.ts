@@ -14,7 +14,7 @@ export const parse = async (code: string, _options?: ParserOptions) => {
 
 export const parseForEslint = async (code: string, _options?: ParserOptions) => {
   const ast = await parse(code, _options);
-  const tokens = await tokenize(code);
+  const tokens = await tokenize(code, _options);
 
   return {
     ast,

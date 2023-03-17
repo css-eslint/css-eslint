@@ -2,13 +2,13 @@ import { Input } from "postcss";
 // @ts-expect-error No type
 import tokenizer from "postcss/lib/tokenize";
 
-import type { Token } from "./types";
+import type { ParserOptions, Token } from "./types";
 import { normalizeTokenType } from "./utils";
 
 const NEWLINE_RE = /\r?\n/g;
 
-export const tokenize = (css: string) => {
-  const processor = tokenizer(new Input(css));
+export const tokenize = (code: string, _options?: ParserOptions) => {
+  const processor = tokenizer(new Input(code));
   const tokens: Token[] = [];
   let line = 1;
   let column = 0;
