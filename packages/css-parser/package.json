@@ -1,0 +1,41 @@
+{
+  "name": "@css-eslint/css-parser",
+  "version": "0.0.0",
+  "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+  "description": "CSS Parser for eslint",
+  "keywords": [],
+  "homepage": "https://github.com/css-eslint/css-eslint/tree/main/packages/css-parser#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/css-eslint/css-eslint.git",
+    "directory": "/"
+  },
+  "bugs": {
+    "url": "https://github.com/css-eslint/css-eslint/issues"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "puild",
+    "stub": "puild --stub"
+  },
+  "dependencies": {
+    "postcss": "^8.4.21"
+  }
+}
