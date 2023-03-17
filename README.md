@@ -1,4 +1,4 @@
-# @css-eslint
+# @css-eslint/monorepo
 
 ## License
 
