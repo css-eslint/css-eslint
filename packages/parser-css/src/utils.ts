@@ -68,17 +68,20 @@ export const normalizeNode = (node: AnyNode) => {
   return normalizedNode;
 };
 
-const TOKEN_TYPE_MAP = {
-  "comment": "Comment",
-  "word": "Word",
-  "space": "Space",
-  "at-word": "AtWord",
-  "brackets": "Brackets",
-};
+const TOKEN_TYPES = [
+  "comment",
+  "word",
+  "space",
+  "at-word",
+  "brackets",
+];
+
+// a-asfasf-AS => AAsfasfAs
+const pascalCase = (str: string) => (` ${str}`).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 
 export const normalizeTokenType = (type: string) => {
-  if (type in TOKEN_TYPE_MAP) {
-    return TOKEN_TYPE_MAP[type as keyof typeof TOKEN_TYPE_MAP];
+  if (TOKEN_TYPES.includes(type)) {
+    return pascalCase(type);
   }
   return "Punctuator";
 };

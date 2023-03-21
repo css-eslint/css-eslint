@@ -1,10 +1,10 @@
 {
-  "name": "@css-eslint/css-parser",
+  "name": "@css-eslint/eslint-plugin",
   "version": "0.0.0",
   "author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-  "description": "CSS Parser for ESLint",
+  "description": "CSS Plugin for ESLint",
   "keywords": [],
-  "homepage": "https://github.com/css-eslint/css-eslint/tree/main/packages/css-parser#readme",
+  "homepage": "https://github.com/css-eslint/css-eslint/tree/main/packages/eslint-plugin#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/css-eslint/css-eslint.git",

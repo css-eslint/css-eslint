@@ -19,7 +19,7 @@ export const tokenize = (code: string, _options?: ParserOptions) => {
     const [type, value] = token;
     let [,, start, end] = token;
     if (start === undefined) {
-      start = tokens[tokens.length - 1].range[1];
+      start = tokens[tokens.length - 1]?.range[1];
     }
     if (end === undefined) {
       end = start + 1;
