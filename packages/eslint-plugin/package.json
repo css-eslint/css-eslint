@@ -32,10 +32,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "puild",
-    "stub": "puild --stub"
+    "build": "unbuild",
+    "stub": "unbuild --stub"
   },
   "dependencies": {
-    "postcss": "^8.4.21"
+    "postcss": "^8.4.23"
   }
 }
