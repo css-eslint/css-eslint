@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      scule:
+        specifier: ^1.0.0
+        version: 1.0.0
     devDependencies:
       '@antfu/ni':
         specifier: ^0.21.4
@@ -4295,6 +4299,10 @@ packages:
       refa: 0.11.0
       regexp-ast-analysis: 0.6.0
     dev: true
+
+  /scule@1.0.0:
+    resolution: {integrity: sha512-4AsO/FrViE/iDNEPaAQlb77tf0csuq27EsVpy6ett584EcRTp6pTDLoGWVxCD77y5iU5FauOvhsI4o1APwPoSQ==}
+    dev: false
 
   /semver@5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}

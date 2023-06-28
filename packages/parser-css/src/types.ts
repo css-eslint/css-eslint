@@ -13,13 +13,7 @@ type WithLocAndRange<T> = T & {
   range: [number, number];
 };
 
-export type NodeType =
-  | "Root"
-  | "AtRule"
-  | "Rule"
-  | "Declaration"
-  | "Comment"
-  | "Document";
+export type NodeType = AnyNodeWithLocAndRange["type"];
 
 export type CommentNode = WithLocAndRange<{
   type: "Comment";
@@ -45,8 +39,8 @@ export type DeclarationNode = WithLocAndRange<{
   value: string;
 }>;
 
-export type RootNode = WithLocAndRange<{
-  type: "Root";
+export type ProgramNode = WithLocAndRange<{
+  type: "Program";
   body: AnyNodeWithLocAndRange[];
   comments: [];
 }>;
@@ -56,7 +50,7 @@ export type AnyNodeWithLocAndRange =
   | AtRule
   | RuleNode
   | DeclarationNode
-  | RootNode;
+  | ProgramNode;
 
 export interface ParserOptions {}
 
@@ -70,4 +64,4 @@ export interface Token {
 export type Parse = (
   code: string,
   _options?: ParserOptions,
-) => Promise<RootNode>;
+) => Promise<ProgramNode>;

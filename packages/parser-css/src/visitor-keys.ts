@@ -1,5 +1,5 @@
 export const visitorKeys: Record<string, string[]> = {
-  Root: [],
+  Program: [],
   AtRule: ["name", "params"],
   Rule: ["selector"],
   Declaration: ["prop", "value"],
