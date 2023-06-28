@@ -9,6 +9,12 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@css-eslint/parser-css": ["./packages/parser-css/src/index.ts"],
+      "@css-eslint/eslint-plugin-css": [
+        "./packages/eslint-plugin-css/src/index.ts"
+      ]
+    }
   }
 }

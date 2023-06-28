@@ -25,8 +25,13 @@
     "typecheck": "tsc --noEmit",
     "watch": "pnpm -r --parallel run watch"
   },
+  "dependencies": {
+    "scule": "^1.0.0"
+  },
   "devDependencies": {
     "@antfu/ni": "^0.21.4",
+    "@css-eslint/eslint-plugin-css": "workspace:*",
+    "@css-eslint/parser-css": "workspace:*",
     "@so1ve/eslint-config": "^0.106.1",
     "@types/node": "^18.16.18",
     "bumpp": "^9.1.1",
@@ -36,8 +41,5 @@
     "typescript": "^5.1.5",
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
-  },
-  "dependencies": {
-    "scule": "^1.0.0"
   }
 }

@@ -16,11 +16,11 @@ type WithLocAndRange<T> = T & {
 export type NodeType = AnyNodeWithLocAndRange["type"];
 
 export type CommentNode = WithLocAndRange<{
-  type: "Comment";
-  text: string;
+  type: "Block";
+  value: string;
 }>;
 
-export type AtRule = WithLocAndRange<{
+export type AtRuleNode = WithLocAndRange<{
   type: "AtRule";
   name: string;
   params: string;
@@ -41,13 +41,15 @@ export type DeclarationNode = WithLocAndRange<{
 
 export type ProgramNode = WithLocAndRange<{
   type: "Program";
+  sourceType: "module";
   body: AnyNodeWithLocAndRange[];
-  comments: [];
+  comments: CommentNode[];
+  tokens: Token[];
 }>;
 
 export type AnyNodeWithLocAndRange =
   | CommentNode
-  | AtRule
+  | AtRuleNode
   | RuleNode
   | DeclarationNode
   | ProgramNode;

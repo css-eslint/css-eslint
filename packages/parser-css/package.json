@@ -37,7 +37,11 @@
     "watch": "pkgroll --watch"
   },
   "dependencies": {
+    "@types/eslint": "^8.40.2",
     "postcss": "^8.4.24",
     "synckit": "^0.8.5"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.40.0"
   }
 }

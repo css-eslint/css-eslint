@@ -1,7 +1,7 @@
 import { Input } from "postcss";
 import tokenizer from "postcss/lib/tokenize";
 
-import type { ParserOptions, Token } from "./types";
+import type { CommentNode, ParserOptions, Token } from "./types";
 import { normalizeTokenType } from "./utils";
 
 const NEWLINE_RE = /\r?\n/;
@@ -9,6 +9,7 @@ const NEWLINE_RE = /\r?\n/;
 export function tokenize(code: string, _options?: ParserOptions) {
   const processor = tokenizer(new Input(code));
   const tokens: Token[] = [];
+  const comments: Token[] = [];
   let line = 1;
   let column = 0;
   let prevLine = 1;
@@ -32,7 +33,8 @@ export function tokenize(code: string, _options?: ParserOptions) {
     }
     column += splited[splited.length - 1].length;
 
-    tokens.push({
+    // To match @typescript-eslint/parser's behavior
+    (type === "comment" ? comments : tokens).push({
       type: normalizeTokenType(type),
       range: [start, end],
       loc: {
@@ -52,5 +54,11 @@ export function tokenize(code: string, _options?: ParserOptions) {
     prevColumn = column;
   }
 
-  return tokens;
+  return {
+    tokens,
+    comments: comments.map((t) => ({
+      ...t,
+      value: t.value.slice(2, -2),
+    })) as CommentNode[],
+  };
 }

@@ -1,3 +1,13 @@
 {
-  "extends": "@so1ve"
+  "extends": "@so1ve",
+  "overrides": [
+    {
+      "files": "*.css",
+      "parser": "@css-eslint/parser-css",
+      "plugins": ["@css-eslint/css"],
+      "rules": {
+        "@css-eslint/css/foo": "error"
+      }
+    }
+  ]
 }

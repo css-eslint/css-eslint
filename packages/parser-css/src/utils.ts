@@ -1,11 +1,11 @@
 import type { AnyNode } from "postcss";
 import { pascalCase } from "scule";
 
-import type { AnyNodeWithLocAndRange, Token } from "./types";
+import type { AnyNodeWithLocAndRange } from "./types";
 
 const TYPE_MAP = {
   atrule: "AtRule",
-  comment: "Comment",
+  comment: "Block",
   decl: "Declaration",
   rule: "Rule",
   root: "Program",
@@ -79,6 +79,3 @@ export function normalizeTokenType(type: string) {
 
   return "Punctuator";
 }
-
-export const getComments = (tokens: Token[]) =>
-  tokens.filter((t) => t.type === "Comment").map((t) => t.value.slice(2, -2));
