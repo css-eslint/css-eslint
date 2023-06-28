@@ -36,6 +36,6 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "postcss": "^8.4.23"
+    "postcss": "^8.4.24"
   }
 }

@@ -13,30 +13,25 @@ const TYPE_MAP = {
 
 const normalizeName = (name: keyof typeof TYPE_MAP) => TYPE_MAP[name];
 
-const normalizeLocEnd = (node: AnyNode) => node.type === "root"
-  ? {
-      line: node.source?.input?.css.split(/\r?\n/).length ?? 0,
-      column: 0,
-    }
-  : {
-      line: node.source?.end?.line ?? 0,
-      column: node.source?.end?.column ?? 0,
-    };
+const normalizeLocEnd = (node: AnyNode) =>
+  node.type === "root"
+    ? {
+        line: node.source?.input?.css.split(/\r?\n/).length ?? 0,
+        column: 0,
+      }
+    : {
+        line: node.source?.end?.line ?? 0,
+        column: node.source?.end?.column ?? 0,
+      };
 
-const normalizeRangeEnd = (node: AnyNode) => node.type === "root"
-  ? node.source?.input?.css.length ?? 0
-  : node.source?.end?.offset ?? 0;
+const normalizeRangeEnd = (node: AnyNode) =>
+  node.type === "root"
+    ? node.source?.input?.css.length ?? 0
+    : node.source?.end?.offset ?? 0;
 
-const DATA_KEYS = [
-  "text",
-  "name",
-  "params",
-  "selector",
-  "prop",
-  "value",
-];
+const DATA_KEYS = ["text", "name", "params", "selector", "prop", "value"];
 
-export const normalizeNode = (node: AnyNode) => {
+export function normalizeNode(node: AnyNode) {
   const locEnd = normalizeLocEnd(node);
   const rangeEnd = normalizeRangeEnd(node);
 
@@ -49,10 +44,7 @@ export const normalizeNode = (node: AnyNode) => {
       },
       end: locEnd,
     },
-    range: [
-      node.source?.start?.offset ?? 0,
-      rangeEnd,
-    ],
+    range: [node.source?.start?.offset ?? 0, rangeEnd],
   } as any;
 
   for (const key of DATA_KEYS) {
@@ -66,22 +58,20 @@ export const normalizeNode = (node: AnyNode) => {
   }
 
   return normalizedNode;
-};
+}
 
-const TOKEN_TYPES = [
-  "comment",
-  "word",
-  "space",
-  "at-word",
-  "brackets",
-];
+const TOKEN_TYPES = ["comment", "word", "space", "at-word", "brackets"];
 
 // a-asfasf-AS => AAsfasfAs
-const pascalCase = (str: string) => (` ${str}`).toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+const pascalCase = (str: string) =>
+  ` ${str}`
+    .toLowerCase()
+    .replace(/[^a-zA-Z\d]+(.)/g, (m, chr) => chr.toUpperCase());
 
-export const normalizeTokenType = (type: string) => {
+export function normalizeTokenType(type: string) {
   if (TOKEN_TYPES.includes(type)) {
     return pascalCase(type);
   }
+
   return "Punctuator";
-};
+}

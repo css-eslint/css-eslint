@@ -5,9 +5,9 @@ import tokenizer from "postcss/lib/tokenize";
 import type { ParserOptions, Token } from "./types";
 import { normalizeTokenType } from "./utils";
 
-const NEWLINE_RE = /\r?\n/g;
+const NEWLINE_RE = /\r?\n/;
 
-export const tokenize = (code: string, _options?: ParserOptions) => {
+export function tokenize(code: string, _options?: ParserOptions) {
   const processor = tokenizer(new Input(code));
   const tokens: Token[] = [];
   let line = 1;
@@ -17,7 +17,7 @@ export const tokenize = (code: string, _options?: ParserOptions) => {
   while (!processor.endOfFile()) {
     const token: [string, string, number, number] = processor.nextToken();
     const [type, value] = token;
-    let [,, start, end] = token;
+    let [, , start, end] = token;
     if (start === undefined) {
       start = tokens[tokens.length - 1]?.range[1];
     }
@@ -54,4 +54,4 @@ export const tokenize = (code: string, _options?: ParserOptions) => {
   }
 
   return tokens;
-};
+}
