@@ -1,4 +1,5 @@
 import type { AnyNode } from "postcss";
+import { pascalCase } from "scule";
 
 import type { AnyNodeWithLocAndRange, Token } from "./types";
 
@@ -7,7 +8,7 @@ const TYPE_MAP = {
   comment: "Comment",
   decl: "Declaration",
   rule: "Rule",
-  root: "Root",
+  root: "Program",
   document: "Document",
 } as const;
 
@@ -70,11 +71,6 @@ export function normalizeNode(node: AnyNode) {
 }
 
 const TOKEN_TYPES = ["comment", "word", "space", "at-word", "brackets"];
-
-const pascalCase = (str: string) =>
-  ` ${str}`
-    .toLowerCase()
-    .replace(/[^a-zA-Z\d]+(.)/g, (m, chr) => chr.toUpperCase());
 
 export function normalizeTokenType(type: string) {
   if (TOKEN_TYPES.includes(type)) {
