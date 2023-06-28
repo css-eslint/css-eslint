@@ -1,5 +1,4 @@
 import { Input } from "postcss";
-// @ts-expect-error No type
 import tokenizer from "postcss/lib/tokenize";
 
 import type { ParserOptions, Token } from "./types";
@@ -15,7 +14,7 @@ export function tokenize(code: string, _options?: ParserOptions) {
   let prevLine = 1;
   let prevColumn = 1;
   while (!processor.endOfFile()) {
-    const token: [string, string, number, number] = processor.nextToken();
+    const token = processor.nextToken();
     const [type, value] = token;
     let [, , start, end] = token;
     if (start === undefined) {
