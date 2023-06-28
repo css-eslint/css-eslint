@@ -66,3 +66,8 @@ export interface Token {
   range: [number, number];
   value: string;
 }
+
+export type Parse = (
+  code: string,
+  _options?: ParserOptions,
+) => Promise<RootNode>;

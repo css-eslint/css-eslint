@@ -1,6 +1,6 @@
 import type { AnyNode } from "postcss";
 
-import type { AnyNodeWithLocAndRange } from "./types";
+import type { AnyNodeWithLocAndRange, Token } from "./types";
 
 const TYPE_MAP = {
   atrule: "AtRule",
@@ -83,3 +83,6 @@ export function normalizeTokenType(type: string) {
 
   return "Punctuator";
 }
+
+export const getComments = (tokens: Token[]) =>
+  tokens.filter((t) => t.type === "Comment").map((t) => t.value.slice(2, -2));

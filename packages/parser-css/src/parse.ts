@@ -1,24 +1,20 @@
-import postcss from "postcss";
+import { createSyncFn } from "synckit";
 
 import { tokenize } from "./tokenize";
-import type { ParserOptions, RootNode } from "./types";
-import { normalizeNode } from "./utils";
+import type { Parse, ParserOptions } from "./types";
+import { getComments } from "./utils";
 import { visitorKeys } from "./visitor-keys";
 
-export async function parse(code: string, _options?: ParserOptions) {
-  const { root } = await postcss().process(code, { from: undefined });
-  const ast = normalizeNode(root) as RootNode;
+export const parse = createSyncFn<Parse>(require.resolve("./parse-worker.cjs"));
 
-  return ast;
-}
-
-export async function parseForEslint(code: string, _options?: ParserOptions) {
-  const ast = await parse(code, _options);
+export function parseForEslint(code: string, _options?: ParserOptions) {
+  const ast = parse(code, _options);
   const tokens = tokenize(code, _options);
+  const comments = getComments(tokens);
 
   return {
     ast,
-    comments: [],
+    comments,
     visitorKeys,
     tokens,
   };
