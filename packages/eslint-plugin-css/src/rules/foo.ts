@@ -15,9 +15,11 @@ export default {
   },
   create: () => ({
     Program(node: ProgramNode) {
+      // eslint-disable-next-line no-console
       console.log(node);
     },
     Rule(node: RuleNode) {
+      // eslint-disable-next-line no-console
       console.log(node);
     },
   }),
