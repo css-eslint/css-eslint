@@ -18,12 +18,10 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs"
     }
   },
   "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -32,8 +30,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub"
+    "build": "pkgroll",
+    "watch": "pkgroll --watch"
   },
   "dependencies": {
     "postcss": "^8.4.24"
