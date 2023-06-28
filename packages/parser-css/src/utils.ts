@@ -9,9 +9,11 @@ const TYPE_MAP = {
   rule: "Rule",
   root: "Root",
   document: "Document",
-};
+} as const;
 
-const normalizeName = (name: keyof typeof TYPE_MAP) => TYPE_MAP[name];
+type KeyTypes = keyof typeof TYPE_MAP;
+
+const normalizeName = <T extends KeyTypes>(name: T) => TYPE_MAP[name];
 
 const normalizeLocEnd = (node: AnyNode) =>
   node.type === "root"
@@ -29,14 +31,21 @@ const normalizeRangeEnd = (node: AnyNode) =>
     ? node.source?.input?.css.length ?? 0
     : node.source?.end?.offset ?? 0;
 
-const DATA_KEYS = ["text", "name", "params", "selector", "prop", "value"];
+const DATA_KEYS = [
+  "text",
+  "name",
+  "params",
+  "selector",
+  "prop",
+  "value",
+] as const;
 
 export function normalizeNode(node: AnyNode) {
   const locEnd = normalizeLocEnd(node);
   const rangeEnd = normalizeRangeEnd(node);
 
   const normalizedNode: AnyNodeWithLocAndRange = {
-    type: normalizeName(node.type) as any,
+    type: normalizeName(node.type),
     loc: {
       start: {
         line: node.source?.start?.line ?? 0,
@@ -62,7 +71,6 @@ export function normalizeNode(node: AnyNode) {
 
 const TOKEN_TYPES = ["comment", "word", "space", "at-word", "brackets"];
 
-// a-asfasf-AS => AAsfasfAs
 const pascalCase = (str: string) =>
   ` ${str}`
     .toLowerCase()
