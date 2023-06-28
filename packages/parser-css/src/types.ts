@@ -8,46 +8,46 @@ export interface Location {
   end: Position;
 }
 
-type WithLocAndRange<T> = T & {
+type WithSharedData<T> = T & {
   loc: Location;
   range: [number, number];
 };
 
-export type NodeType = AnyNodeWithLocAndRange["type"];
+export type NodeType = AnyNode["type"];
 
-export type CommentNode = WithLocAndRange<{
+export type CommentNode = WithSharedData<{
   type: "Block";
   value: string;
 }>;
 
-export type AtRuleNode = WithLocAndRange<{
+export type AtRuleNode = WithSharedData<{
   type: "AtRule";
   name: string;
   params: string;
-  body: AnyNodeWithLocAndRange[];
+  body: AnyNode[];
 }>;
 
-export type RuleNode = WithLocAndRange<{
+export type RuleNode = WithSharedData<{
   type: "Rule";
   selector: string;
-  body: AnyNodeWithLocAndRange[];
+  body: AnyNode[];
 }>;
 
-export type DeclarationNode = WithLocAndRange<{
+export type DeclarationNode = WithSharedData<{
   type: "Declaration";
   prop: string;
   value: string;
 }>;
 
-export type ProgramNode = WithLocAndRange<{
+export type ProgramNode = WithSharedData<{
   type: "Program";
   sourceType: "module";
-  body: AnyNodeWithLocAndRange[];
+  body: AnyNode[];
   comments: CommentNode[];
   tokens: Token[];
 }>;
 
-export type AnyNodeWithLocAndRange =
+export type AnyNode =
   | CommentNode
   | AtRuleNode
   | RuleNode

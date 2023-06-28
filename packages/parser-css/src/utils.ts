@@ -1,7 +1,7 @@
-import type { AnyNode } from "postcss";
+import type { AnyNode as PostcssAnyNode } from "postcss";
 import { pascalCase } from "scule";
 
-import type { AnyNodeWithLocAndRange } from "./types";
+import type { AnyNode } from "./types";
 
 const TYPE_MAP = {
   atrule: "AtRule",
@@ -16,7 +16,7 @@ type KeyTypes = keyof typeof TYPE_MAP;
 
 const normalizeName = <T extends KeyTypes>(name: T) => TYPE_MAP[name];
 
-const normalizeLocEnd = (node: AnyNode) =>
+const normalizeLocEnd = (node: PostcssAnyNode) =>
   node.type === "root"
     ? {
         line: node.source?.input?.css.split(/\r?\n/).length ?? 0,
@@ -27,7 +27,7 @@ const normalizeLocEnd = (node: AnyNode) =>
         column: node.source?.end?.column ?? 0,
       };
 
-const normalizeRangeEnd = (node: AnyNode) =>
+const normalizeRangeEnd = (node: PostcssAnyNode) =>
   node.type === "root"
     ? node.source?.input?.css.length ?? 0
     : node.source?.end?.offset ?? 0;
@@ -41,11 +41,11 @@ const DATA_KEYS = [
   "value",
 ] as const;
 
-export function normalizeNode(node: AnyNode) {
+export function normalizeNode(node: PostcssAnyNode) {
   const locEnd = normalizeLocEnd(node);
   const rangeEnd = normalizeRangeEnd(node);
 
-  const normalizedNode: AnyNodeWithLocAndRange = {
+  const normalizedNode: AnyNode = {
     type: normalizeName(node.type),
     loc: {
       start: {
@@ -59,7 +59,7 @@ export function normalizeNode(node: AnyNode) {
 
   for (const key of DATA_KEYS) {
     if (key in node) {
-      (normalizedNode as any)[key] = node[key as keyof AnyNode];
+      (normalizedNode as any)[key] = node[key as keyof PostcssAnyNode];
     }
   }
 
