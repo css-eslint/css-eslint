@@ -3,6 +3,8 @@ import { pascalCase } from "scule";
 
 import type { AnyNode } from "./types";
 
+export const NEWLINE_RE = /\r?\n/;
+
 const TYPE_MAP = {
   atrule: "AtRule",
   comment: "Block",
@@ -19,18 +21,18 @@ const normalizeName = <T extends KeyTypes>(name: T) => TYPE_MAP[name];
 const normalizeLocEnd = (node: PostcssAnyNode) =>
   node.type === "root"
     ? {
-        line: node.source?.input?.css.split(/\r?\n/).length ?? 0,
-        column: 0,
+        line: node.source?.input?.css.split(/\r?\n/).length ?? 1,
+        column: 1,
       }
     : {
-        line: node.source?.end?.line ?? 0,
-        column: node.source?.end?.column ?? 0,
+        line: node.source?.end?.line ?? 1,
+        column: node.source?.end?.column ?? 1,
       };
 
 const normalizeRangeEnd = (node: PostcssAnyNode) =>
-  node.type === "root"
+  (node.type === "root"
     ? node.source?.input?.css.length ?? 0
-    : node.source?.end?.offset ?? 0;
+    : node.source?.end?.offset ?? 0) + 1;
 
 const DATA_KEYS = [
   "text",
