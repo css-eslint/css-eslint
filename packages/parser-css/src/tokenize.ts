@@ -2,9 +2,7 @@ import { Input } from "postcss";
 import tokenizer from "postcss/lib/tokenize";
 
 import type { CommentNode, ParserOptions, Token } from "./types";
-import { normalizeTokenType } from "./utils";
-
-const NEWLINE_RE = /\r?\n/;
+import { NEWLINE_RE, normalizeTokenType } from "./utils";
 
 export function tokenize(code: string, _options?: ParserOptions) {
   const processor = tokenizer(new Input(code));
