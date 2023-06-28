@@ -33,10 +33,20 @@ export type RuleNode = WithSharedData<{
   body: AnyNode[];
 }>;
 
+export type DeclarationProp = WithSharedData<{
+  type: "DeclarationProp";
+  value: string;
+}>;
+
+export type DeclarationValue = WithSharedData<{
+  type: "DeclarationValue";
+  value: string;
+}>;
+
 export type DeclarationNode = WithSharedData<{
   type: "Declaration";
-  prop: string;
-  value: string;
+  prop: DeclarationProp;
+  value: DeclarationValue;
 }>;
 
 export type ProgramNode = WithSharedData<{

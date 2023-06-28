@@ -1,7 +1,7 @@
 import type { AnyNode as PostcssAnyNode } from "postcss";
 import { pascalCase } from "scule";
 
-import type { AnyNode } from "./types";
+import type { AnyNode, DeclarationNode } from "./types";
 
 export const NEWLINE_RE = /\r?\n/;
 
@@ -59,6 +59,9 @@ export function normalizeNode(node: PostcssAnyNode) {
     range: [node.source?.start?.offset ?? 0, rangeEnd],
   } as any;
 
+  const code = node.source?.input?.css ?? "";
+  const nodeText = code.slice(normalizedNode.range[0], normalizedNode.range[1]);
+
   for (const key of DATA_KEYS) {
     if (key in node) {
       (normalizedNode as any)[key] = node[key as keyof PostcssAnyNode];
@@ -67,6 +70,42 @@ export function normalizeNode(node: PostcssAnyNode) {
 
   if ("nodes" in node) {
     (normalizedNode as any).body = node.nodes.map(normalizeNode);
+  }
+
+  if (node.type === "decl") {
+    (normalizedNode as DeclarationNode).prop = {
+      type: "DeclarationProp",
+      loc: {
+        start: normalizedNode.loc.start,
+        end: {
+          line: normalizedNode.loc.start.line,
+          column: normalizedNode.loc.start.column + node.prop.length,
+        },
+      },
+      range: [
+        normalizedNode.range[0],
+        normalizedNode.range[0] + node.prop.length,
+      ],
+      value: node.prop,
+    };
+
+    const valueRangeStart =
+      normalizedNode.range[0] + nodeText.indexOf(node.value);
+    const valueRangeEnd = valueRangeStart + node.value.length;
+
+    // FIXME: Loc is wrong
+    (normalizedNode as DeclarationNode).value = {
+      type: "DeclarationValue",
+      loc: {
+        start: {
+          line: normalizedNode.loc.start.line,
+          column: normalizedNode.loc.start.column + node.prop.length + 1,
+        },
+        end: normalizedNode.loc.end,
+      },
+      range: [valueRangeStart, valueRangeEnd],
+      value: node.value,
+    };
   }
 
   return normalizedNode;
