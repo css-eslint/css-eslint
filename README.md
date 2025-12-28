@@ -1,6 +1,7 @@
 # @css-eslint/monorepo
 
-Use [eslint/css](https://github.com/eslint/css).
+> [!WARNING]
+> Use [eslint/css](https://github.com/eslint/css).
 
 ## License
 
